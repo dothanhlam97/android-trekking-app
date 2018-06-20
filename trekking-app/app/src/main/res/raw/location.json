@@ -1,0 +1,114 @@
+[
+  {
+    "id" : "imperial",
+    "locationX" : 10.3418308,
+    "locationY" : 107.0937062,
+    "name" : "Khách sạn IMPERIAL",
+    "type" : "hotel"
+  },
+  {
+    "id" : "tuongchua",
+    "locationX" : 10.3264578,
+    "locationY" : 107.0823457,
+    "name" : "Tượng chúa GieSu Kito Vua",
+    "type" : "place"
+  },
+  {
+    "id" : "banhkhomiendong",
+    "locationX" : 10.3533032,
+    "locationY" : 107.0734091,
+    "name" : "Bánh khọt miền Đông",
+    "type" : "restaurant"
+  },
+  {
+    "id" : "octunhien",
+    "locationX" : 10.3519997,
+    "locationY" : 107.07473,
+    "name" : "Ốc Tự Nhiên",
+    "type" : "restaurant"
+  },
+  {
+    "id" : "yaourt",
+    "locationX" : 10.3343549,
+    "locationY" : 107.0746938,
+    "name" : "Yaourt Cô Tiên",
+    "type" : "restaurant"
+  },
+  {
+    "id" : "laucaduoiutmuoi",
+    "locationX" : 10.3427831,
+    "locationY" : 107.0753851,
+    "name" : "Lẩu cá đuối Út Mười",
+    "type" : "restaurant"
+  },
+  {
+    "id" : "trandiaphaonui",
+    "locationX" : 10.3589627,
+    "locationY" : 107.0641628,
+    "name" : "Trận địa Pháo núi Lớn Tương Kỳ",
+    "type" : "place"
+  },
+  {
+    "id" : "nhahangganhhao",
+    "locationX" : 10.3615801,
+    "locationY" : 107.0640877,
+    "name" : "Nhà hàng Gành Hào",
+    "type" : "restaurant"
+  },
+  {
+    "id" : "cafesakura",
+    "locationX" : 10.3617384,
+    "locationY" : 107.0641091,
+    "name" : "Quán Cafe Sakura",
+    "type" : "restaurant"
+  },
+  {
+    "id" : "kemalibaba",
+    "locationX" : 10.3479322,
+    "locationY" : 107.0701527,
+    "name" : "Kem Alibaba",
+    "type" : "restaurant"
+  },
+  {
+    "id" : "baotangvukhico",
+    "locationX" : 10.3479322,
+    "locationY" : 107.0701527,
+    "name" : "Bảo tàng vũ khí cổ",
+    "type" : "place"
+  },
+  {
+    "id" : "mithaynghiepky",
+    "locationX" : 10.349927,
+    "locationY" : 107.0762145,
+    "name" : "Mì thảy Nghiệp Ký",
+    "type" : "restaurant"
+  },
+  {
+    "id" : "phominhtam",
+    "locationX" : 10.349927,
+    "locationY" : 107.0762145,
+    "name" : "Phở Minh Tâm",
+    "type" : "restaurant"
+  },
+  {
+    "id" : "lotterialLHP",
+    "locationX" : 10.3529666,
+    "locationY" : 107.082523,
+    "name" : "Lotteria Lê Hồng Phong",
+    "type" : "store"
+  },
+  {
+    "id" : "greenWorldResort",
+    "locationX" : 10.3590985,
+    "locationY" : 107.101952,
+    "name" : "Khu du lịch Green World Resort",
+    "type" : "hotel"
+  },
+  {
+    "id" : "paradiseVungTau",
+    "locationX" : 10.3545542,
+    "locationY" : 107.1021072,
+    "name" : "Vũng Tàu Paradise",
+    "type" : "hotel"
+  }
+]

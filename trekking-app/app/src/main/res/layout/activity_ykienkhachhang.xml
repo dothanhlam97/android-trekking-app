@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background ="#FFFF"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TextView
+        android:textStyle="italic"
+        android:layout_marginRight="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="10dp"
+        android:background="#f9e6c4"
+        android:textSize="18sp"
+        android:text="Ý kiến đóng góp của bạn sẽ giúp StoreMap ngày càng phát triển hơn trong tương lai."
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <ListView
+        android:id="@+id/listViewYKienKH"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </ListView>
+
+</LinearLayout>

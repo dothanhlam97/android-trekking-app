@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:minWidth="300dp"
+    android:layout_margin="10dp"
+    >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text="Find path"
+        android:textSize="20sp"
+        android:gravity="center"
+        android:textColor="@color/colorText"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Choose starting point:"
+        android:textSize="18sp"
+        android:layout_marginTop="5dp"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="6"
+        >
+
+        <EditText
+            android:id="@+id/fromTxt"
+            android:layout_width="305dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"
+            android:lines="1" />
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/ibtnRepeat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="50dp"
+        android:onClick="swapOnClick"
+        android:src="@drawable/repeat" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Choose destination:"
+        android:textSize="18sp"
+        android:layout_marginTop="5dp"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="6"
+        >
+
+        <EditText
+            android:id="@+id/toTxt"
+            android:layout_width="295dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"
+            android:lines="1" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:orientation="horizontal">
+
+
+        <RadioButton
+            android:id="@+id/rdbWalk"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="modeOnClick"
+            />
+        <ImageView
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/icon_walk"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <RadioButton
+            android:id="@+id/rdbCar"
+            android:layout_marginLeft="20dp"
+            android:checked="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="modeOnClick"/>
+        <ImageView
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/icon_car"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp">
+
+        <Button
+            android:id="@+id/findBtn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Find path"
+            android:textAllCaps="false"
+            />
+
+        <Button
+            android:id="@+id/exitBtn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textAllCaps="false"
+            android:text="Exit"
+            />
+    </LinearLayout>
+
+</LinearLayout>

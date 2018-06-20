@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:weightSum="5"
+    android:orientation="vertical"
+    android:background="#FFFFFF"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="10dp"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="20dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:text="Thông tin"
+        android:textSize="40sp"
+        android:gravity="center"
+        android:textStyle="italic"
+        android:textColor="@color/colorMain"
+        android:fontFamily="@font/jennifer_lynne_bold" />
+    <TextView
+        android:gravity="start|center"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_weight="2"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/colorMain"
+        android:textSize="18sp"
+        android:text="Thông tin ứng dụng:\n
+- Tìm các địa điểm vui chơi, ăn uống tại Vũng Tàu.
+\n- Tìm đường đi tại hai điểm trên bản đồ.
+\n- Xem thông tin về các địa điểm ở Vũng Tàu"
+        android:layout_width="match_parent"
+        android:layout_height="0dp" />
+    <TextView
+        android:background="@drawable/border_edt2"
+        android:gravity="start|center"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_weight="2"
+        android:layout_marginTop="10dp"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        android:text="Tác giả:\n
+        Đỗ Thanh Lam\n
+        Sinh viên Đại học Khoa học tự nhiên.\n
+        MSSV: 1512275.\n
+        Lớp cử nhân tài năng 2015"
+        android:layout_width="match_parent"
+        android:layout_height="0dp" />
+
+
+</LinearLayout>

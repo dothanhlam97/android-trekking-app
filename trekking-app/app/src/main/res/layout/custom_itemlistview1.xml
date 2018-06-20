@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:background="#FFFF"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ImageView
+        android:id="@+id/imageView_flag1"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp" />
+
+    <TextView
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="25dp"
+        android:textColor="#000000"
+        android:text="noi dung"
+        android:textSize="18sp"
+        android:id="@+id/tvNoiDung1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:visibility="invisible"
+        android:id="@+id/idPlace"
+        android:text=""/>
+
+
+</LinearLayout>

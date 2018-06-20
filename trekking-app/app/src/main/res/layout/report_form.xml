@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff">
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:text="Your thoughts matter"
+        android:textSize="40sp"
+        android:gravity="center"
+        android:textStyle="italic"
+        android:textColor="@color/colorMain"
+        android:fontFamily="@font/jennifer_lynne_bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="0dp"
+        android:layout_height="25dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:text="Subject:"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.058"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <EditText
+        android:id="@+id/edtChuDe"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:hint=""
+        android:background="@drawable/border_edt2"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:text="Your thinking:"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edtChuDe" />
+
+    <EditText
+        android:id="@+id/edtNoiDung"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/border_edt2"
+        android:gravity="top"
+        android:hint=""
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/btnGuiGopY"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/btnGuiGopY"
+        android:layout_width="match_parent"
+        android:foregroundGravity="center"
+        android:layout_height="46dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:background="@drawable/border_button"
+        android:backgroundTint="@color/colorMain"
+        android:text="Send"
+        android:textColor="@color/colorText"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</android.support.constraint.ConstraintLayout>
+
+
+

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="130dp"
+        android:background="#3498db"
+        >
+
+        <ImageView
+            android:id="@+id/imgProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true" />
+
+        <ImageButton
+            android:id="@+id/btnImgEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:adjustViewBounds="true"
+            android:src="@drawable/icon_editprofile" />
+
+    </RelativeLayout>
+
+    <EditText
+        android:id="@+id/edtUserName"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/icon_user"
+        android:enabled="false"
+        />
+    <EditText
+        android:id="@+id/edtNgaySinh"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/icon_dob"
+        android:hint="Ngày sinh"
+        android:enabled="false"
+        />
+    <EditText
+        android:id="@+id/edtGioiTinh"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/icon_gender"
+        android:enabled="false"
+        />
+    <EditText
+        android:id="@+id/edtSDT"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Số điện thoại"
+        android:drawableLeft="@drawable/icon_phonenumber"
+        android:enabled="false"
+        />
+    <EditText
+        android:id="@+id/edtEmail"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/icon_email"
+        android:enabled="false"
+        />
+    <EditText
+        android:id="@+id/edtNgheNghiep"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Nghề nghiệp"
+        android:drawableLeft="@drawable/icon_job"
+        android:enabled="false"
+        />
+
+</LinearLayout>

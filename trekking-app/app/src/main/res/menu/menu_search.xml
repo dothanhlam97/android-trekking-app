@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/colorMain">
+
+    <item android:title="Search"
+        android:id="@+id/mnSearch"
+        android:icon="@drawable/icon_tracuufab"
+        app:showAsAction="collapseActionView|always"
+        />
+</menu>
