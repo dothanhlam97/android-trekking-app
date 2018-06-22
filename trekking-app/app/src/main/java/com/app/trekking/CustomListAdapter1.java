@@ -55,11 +55,8 @@ public class CustomListAdapter1 extends ArrayAdapter<ItemListView1> {
         return view;
     }
 
-    // Tìm ID của Image ứng với tên của ảnh (Trong thư mục mipmap).
     public int getMipmapResIdByName(String resName)  {
         String pkgName = context.getPackageName();
-
-        // Trả về 0 nếu không tìm thấy.
         int resID = context.getResources().getIdentifier(resName , "mipmap", pkgName);
         Log.i("CustomListView", "Res Name: "+ resName+"==> Res ID = "+ resID);
         return resID;

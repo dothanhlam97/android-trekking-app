@@ -34,7 +34,6 @@ public class CustomListAdapter extends ArrayAdapter<ItemListView> {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = inflater.inflate(resource,null);
             holder = new ViewHolder();
-            //Anh xa
             holder.flagView = (ImageView) view.findViewById(R.id.imageView_flag);
             holder.chuDeView = (TextView) view.findViewById(R.id.tvChuDe);
             holder.noidungView = (TextView) view.findViewById(R.id.tvNoiDung);
@@ -42,7 +41,6 @@ public class CustomListAdapter extends ArrayAdapter<ItemListView> {
         } else {
             holder = (ViewHolder) view.getTag();
         }
-
         ItemListView item = this.listData.get(i);
         holder.noidungView.setText(item.getNoiDung());
         holder.chuDeView.setText(item.getChuDe());
@@ -52,11 +50,8 @@ public class CustomListAdapter extends ArrayAdapter<ItemListView> {
         return view;
     }
 
-    // Tìm ID của Image ứng với tên của ảnh (Trong thư mục mipmap).
     public int getMipmapResIdByName(String resName)  {
         String pkgName = context.getPackageName();
-
-        // Trả về 0 nếu không tìm thấy.
         int resID = context.getResources().getIdentifier(resName , "mipmap", pkgName);
         Log.i("CustomListView", "Res Name: "+ resName+"==> Res ID = "+ resID);
         return resID;

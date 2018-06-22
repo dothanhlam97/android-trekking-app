@@ -57,15 +57,6 @@ public class TraCuuActivity extends AppCompatActivity {
                 bundle.putString("MESS", mess);
                 intent.putExtra("BUNDLE",bundle);
                 startActivity(intent);
-//                if(i == 0){
-//                    intent = new Intent(getApplicationContext(), .class);
-//                    startActivity(intent);
-//                }else if(i == 1){
-//                    intent = new Intent(getApplicationContext(), ThongTinTeamActivity.class);
-//                    startActivity(intent);
-//                }
-
-                //code o day
             }
         });
     }

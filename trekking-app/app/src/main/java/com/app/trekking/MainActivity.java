@@ -1,4 +1,6 @@
 package com.app.trekking;
+import com.app.trekking.database.DatabaseHelper;
+import com.app.trekking.controller.favController;
 
 import android.Manifest;
 import android.annotation.TargetApi;
@@ -100,12 +102,15 @@ public class MainActivity extends AppCompatActivity
         GoogleMap.OnMyLocationClickListener,
         GoogleMap.OnMyLocationButtonClickListener,
         GoogleMap.OnInfoWindowClickListener{
-        private static final String GOOGLE_API_KEY = "AIzaSyAfAGWP3hSqruk1pWEaCnLd_VT-wmLHHvU";
         private GoogleMap map;
-        private String namePlace = "";
         private FloatingActionButton fab, fabTimDuong, fabTraCuu, fabToaDo;
+        private String namePlace = "";
         private  Animation moveCrossover, moveTop, moveLeft, controlFabForward, controlFabBackward;
         private boolean checkShowHide = true;
+
+
+
+
         private ArrayList<ReadJson> arrayReadJS=new ArrayList<ReadJson>();
         private ArrayList<ReadJson> arrayReadJSAutoComplete =new ArrayList<ReadJson>();
         private ArrayList<LoadImage> arrayLoadIM=new ArrayList<LoadImage>();
@@ -138,16 +143,15 @@ public class MainActivity extends AppCompatActivity
 
         private SupportMapFragment mapFragment;
 
-        public Bitmap makeSmallIcon(int id) {
-            BitmapDrawable bitmapdraw=(BitmapDrawable)getResources().getDrawable(id);
-            Bitmap b=bitmapdraw.getBitmap();
-            return Bitmap.createScaledBitmap(b, 80, 80, false);
-        }
-
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_main);
+//          // create database
+            DatabaseHelper database = new DatabaseHelper(this);
+
+
+
 
             // create map
             mapFragment =
@@ -244,6 +248,8 @@ public class MainActivity extends AppCompatActivity
             txtEmail.setText(Email);
 
             ReciveMess();
+
+
             fab.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -251,19 +257,18 @@ public class MainActivity extends AppCompatActivity
                     fabTimDuong.startAnimation(moveTop);
                     fabTraCuu.startAnimation(moveLeft);
                     fabToaDo.startAnimation(moveCrossover);
-                    if(checkShowHide == true) {
+                    if (checkShowHide == true) {
                         fabTimDuong.show();
                         fabToaDo.show();
                         fabTraCuu.show();
                         checkShowHide = false;
-                    }else {
+                    } else {
                         fab.startAnimation(controlFabBackward);
                         fabTimDuong.hide();
                         fabToaDo.hide();
                         fabTraCuu.hide();
                         checkShowHide = true;
                     }
-
                 }
             });
             fabToaDo.setOnClickListener(new View.OnClickListener() {
@@ -273,7 +278,6 @@ public class MainActivity extends AppCompatActivity
                     LatLng home = new LatLng(map.getMyLocation().getLatitude(), map.getMyLocation().getLongitude());
                     CameraUpdate cameraHome = CameraUpdateFactory.newLatLngZoom(home, 16);
                     map.animateCamera(cameraHome);
-                    Log.d("cur", "location");
                 }
             });
             fabTimDuong.setOnClickListener(new View.OnClickListener() {
@@ -286,42 +290,19 @@ public class MainActivity extends AppCompatActivity
             fabTraCuu.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    for (int i=0;i<arrayLoadIM.size();i++){
-                        if (arrayLoadIM.get(i).isCancelled()==false){
-                            arrayLoadIM.get(i).cancel(true);
-                        }
-                        if (i==arrayLoadIM.size()-1){
-                            arrayLoadIM.clear();
-                        }
-                    }
-                    for (int i=0;i<arrayReadJS.size();i++){
-                        if (arrayReadJS.get(i).isCancelled()==false){
-                            arrayReadJS.get(i).cancel(true);
-                        }
-                        if (i==arrayReadJS.size()-1){
-                            arrayReadJS.clear();
-                        }
-                    }
-
-
                     Intent intent = new Intent(MainActivity.this, TraCuuActivity.class);
                     startActivity(intent);
                 }
             });
-
-
-
         }
 
-        static public final int REQUEST_LOCATION = 1;
-        static public boolean PERMISSION_ACCESS_LOCATION = true;
         @Override
         public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-            if (requestCode == REQUEST_LOCATION) {
+            if (requestCode == SystemConfig.REQUEST_LOCATION) {
                 if(grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    PERMISSION_ACCESS_LOCATION = true;
+                    SystemConfig.PERMISSION_ACCESS_LOCATION = true;
                 } else {
-                    PERMISSION_ACCESS_LOCATION = false;
+                    SystemConfig.PERMISSION_ACCESS_LOCATION = false;
                 }
             }
         }
@@ -333,58 +314,41 @@ public class MainActivity extends AppCompatActivity
             LatLng near = new LatLng(10.7603902, 106.6816352);
             MyInfoWindownAdapter myInfoWindownAdapter=new MyInfoWindownAdapter(this);
             map = googleMap;
-
             map.setInfoWindowAdapter(myInfoWindownAdapter);
             CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(near, 16);
-
-
             map.moveCamera(cameraUpdate);
-
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                     != PackageManager.PERMISSION_GRANTED){
-                Log.d("print ", "no");
                 requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
             }
-
-
             if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
                     != PackageManager.PERMISSION_GRANTED
                     && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
                     != PackageManager.PERMISSION_GRANTED) {
-                Log.d("print ", "no2");
                 // Should we show an explanation?
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, SystemConfig.REQUEST_LOCATION);
             }
-
-            if (!PERMISSION_ACCESS_LOCATION) {
+            if (!SystemConfig.PERMISSION_ACCESS_LOCATION) {
                 return;
             }
             map.setMyLocationEnabled(true);
-
             map.setOnMyLocationButtonClickListener(this);
             map.setOnMyLocationClickListener(this);
             map.setOnCameraIdleListener(this);
             map.setOnInfoWindowClickListener(this);
-
             Location a = map.getMyLocation();
             LocationManager manager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
             Criteria mCriteria = new Criteria();
             String bestProvider = String.valueOf(manager.getBestProvider(mCriteria, true));
-
-
             Location mLocation = manager.getLastKnownLocation(bestProvider);
             if (mLocation != null) {
                 final double currentLatitude = mLocation.getLatitude();
                 final double currentLongitude = mLocation.getLongitude();
                 LatLng loc1 = new LatLng(currentLatitude, currentLongitude);
-
-
                 CameraUpdate cameraHome = CameraUpdateFactory.newLatLngZoom(loc1, 16);
                 map.moveCamera(cameraHome);
-
             }
         }
-
 
         private void HideItem() {
             NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -402,7 +366,6 @@ public class MainActivity extends AppCompatActivity
             fabTimDuong.hide();
             fabToaDo.hide();
             fabTraCuu.hide();
-
             controlFabForward = AnimationUtils.loadAnimation(this, R.anim.controlfab_forward);
             controlFabBackward = AnimationUtils.loadAnimation(this,R.anim.controlfab_backward);
             moveTop = AnimationUtils.loadAnimation(this, R.anim.movetop);
@@ -423,26 +386,18 @@ public class MainActivity extends AppCompatActivity
         @Override
         public boolean onCreateOptionsMenu(Menu menu) {
             // Inflate the menu; this adds items to the action bar if it is present.
+            // MENU SEARCH
             getMenuInflater().inflate(R.menu.menu_search, menu);
             return true;
         }
 
         @Override
         public boolean onOptionsItemSelected(MenuItem item) {
-            // Handle action bar item clicks here. The action bar will
-            // automatically handle clicks on the Home/Up button, so long
-            // as you specify a parent activity in AndroidManifest.xml.
             int id = item.getItemId();
             if(id == R.id.mnSearch) {
                 editPlace = 2;
                 openAutocompleteActivity();
             }
-
-            //noinspection SimplifiableIfStatement
-    //        if (id == R.id.action_settings) {
-    //            return true;
-    //        }
-
             return super.onOptionsItemSelected(item);
         }
 
@@ -453,52 +408,45 @@ public class MainActivity extends AppCompatActivity
             // Handle navigation view item clicks here.
             int id = item.getItemId();
             Intent intent = null;
-            if (id == R.id.navReport) {
-                intent = new Intent(this, GopYSanPhamActivity.class);
-                startActivity(intent);
-            }
-            else if(id == R.id.navAbout){
-                intent = new Intent(this, ThongTinUngDungActivity.class);
-                startActivity(intent);
-            }
-            else if(id == R.id.navSearch){
-
-                for (int i=0;i<arrayLoadIM.size();i++){
-                    if (arrayLoadIM.get(i).isCancelled()==false){
-                        arrayLoadIM.get(i).cancel(true);
+            switch (id) {
+                case R.id.navReport:
+                    intent = new Intent(this, GopYSanPhamActivity.class);
+                    startActivity(intent);
+                    break;
+                case R.id.navAbout:
+                    intent = new Intent(this, ThongTinUngDungActivity.class);
+                    startActivity(intent);
+                    break;
+                case R.id.navSearch:
+                    for (int i = 0; i < arrayLoadIM.size(); i++) {
+                        if (arrayLoadIM.get(i).isCancelled() == false) {
+                            arrayLoadIM.get(i).cancel(true);
+                        }
+                        if (i == arrayLoadIM.size() - 1) {
+                            arrayLoadIM.clear();
+                        }
                     }
-                    if (i==arrayLoadIM.size()-1){
-                        arrayLoadIM.clear();
+                    for (int i = 0; i < arrayReadJS.size(); i++) {
+                        if (arrayReadJS.get(i).isCancelled() == false) {
+                            arrayReadJS.get(i).cancel(true);
+                        }
+                        if (i == arrayReadJS.size() - 1) {
+                            arrayReadJS.clear();
+                        }
                     }
-                }
-                for (int i=0;i<arrayReadJS.size();i++){
-                    if (arrayReadJS.get(i).isCancelled()==false){
-                        arrayReadJS.get(i).cancel(true);
-                    }
-                    if (i==arrayReadJS.size()-1){
-                        arrayReadJS.clear();
-                    }
-                }
-
-
-                intent = new Intent(this, TraCuuActivity.class);
-                startActivity(intent);
-
-
-
-            }
-            else if (id == R.id.navSetting) {
-                ShowDialogSetting();
-            }
-    //        else if (id == R.id.navTheme) {
-    //            ShowDialogChonChuDe();
-    //        }
-            else if (id == R.id.navLogin){
-                intent = new Intent(this, LoginActivity.class);
-                startActivity(intent);
-            }
-            else if (id == R.id.navLogout) {
-                disconnectFromFacebook();
+                    intent = new Intent(this, TraCuuActivity.class);
+                    startActivity(intent);
+                    break;
+                case R.id.navSetting:
+                    ShowDialogSetting();
+                    break;
+                case R.id.navLogin:
+                    intent = new Intent(this, LoginActivity.class);
+                    startActivity(intent);
+                    break;
+                case R.id.navLogout:
+                    disconnectFromFacebook();
+                    break;
             }
             DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
             drawer.closeDrawer(GravityCompat.START);
@@ -527,13 +475,11 @@ public class MainActivity extends AppCompatActivity
             ReadJson readJson=new ReadJson();
             readJson.execute(createUrl(vt));
             arrayReadJS.add(readJson);
-            Log.d("go", "go");
         }
 
         @Override
         public void onInfoWindowClick(Marker marker) {
             ShowDialogTransportSelection(marker);
-
         }
 
         @Override
@@ -549,9 +495,7 @@ public class MainActivity extends AppCompatActivity
         public class ReadJson extends AsyncTask<String, Void, String>{
             @Override
             protected String doInBackground(String... strings) {
-
                 StringBuilder content = new StringBuilder();
-
                 try {
                     URL url = new URL(strings[0]);
                     InputStreamReader inputStreamReader = new InputStreamReader(url.openConnection().getInputStream());
@@ -566,20 +510,13 @@ public class MainActivity extends AppCompatActivity
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-
                 return content.toString();
             }
 
             @Override
             protected void onPostExecute(String s) {
-                Log.d("here", "onPostExecute");
                 super.onPostExecute(s);
                 try {
-
-
-
-
-
                     try {
                         //Load File
                         Context mContext=getApplicationContext();
@@ -588,7 +525,6 @@ public class MainActivity extends AppCompatActivity
                         for (String line = null; (line = jsonReader.readLine()) != null;) {
                             jsonBuilder.append(line).append("\n");
                         }
-
                         //Parse Json
                         JSONTokener tokener = new JSONTokener(jsonBuilder.toString());
                         JSONArray jsonArray = new JSONArray(tokener);
@@ -629,9 +565,6 @@ public class MainActivity extends AppCompatActivity
                     } catch (JSONException e) {
                         Log.e("jsonFile", "error while parsing json");
                     }
-
-
-
                     JSONObject jsonObject = new JSONObject(s);
                     JSONArray jsonArray = jsonObject.getJSONArray("results");
                     Log.d("json", jsonArray.toString());
@@ -648,12 +581,6 @@ public class MainActivity extends AppCompatActivity
                         String cover=diachi+"/"+op+"/"+rating;
 
                         JSONObject location = toado.getJSONObject("location");
-//                        JSONArray arPhcarTravel=object.getJSONArray("phcarTravels");
-//                        String phcarTravel_reference= arPhcarTravel.join("phcarTravel_reference");
-//                        int vt=phcarTravel_reference.indexOf("phcarTravel_reference");
-//                        phcarTravel_reference=phcarTravel_reference.substring(vt+18);
-//                        vt=phcarTravel_reference.indexOf("\"");
-//                        phcarTravel_reference=phcarTravel_reference.substring(0,vt);
                         Double tung = location.getDouble("lat");
                         Double hoanh = location.getDouble("lng");
                         LatLng near = new LatLng(tung, hoanh);
@@ -661,24 +588,12 @@ public class MainActivity extends AppCompatActivity
                         markerOptions.position(near);
                         markerOptions.title(name);
                         markerOptions.snippet(cover);
-                        String url="https://maps.googleapis.com/maps/api/place/phcarTravel?maxwidth=400&sensor=false&key=" + GOOGLE_API_KEY;
+                        String url="https://maps.googleapis.com/maps/api/place/phcarTravel?maxwidth=400&sensor=false&key=" + SystemConfig.GOOGLE_API_KEY;
                         Log.d("url 2", url);
                         Marker a = map.addMarker(markerOptions);
-                        //Bitmap aa=null;
-
-
                         LoadImage loadImage=new LoadImage();
-
-
-
                         loadImage.execute(url,a);
-
-
                         arrayLoadIM.add(loadImage);
-
-
-
-
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -686,18 +601,18 @@ public class MainActivity extends AppCompatActivity
 
         }
         }
+
         public String createUrl(LatLng vitri) {
-            String url = "https://maps.googleapis.com/maps/api/place/search/json?location=" + vitri.latitude + "," + vitri.longitude + "&radius=500&types=convenience_store&keyword="+namePlace+"&key=" + GOOGLE_API_KEY;
-            Log.d("url", url);
+            String url = "https://maps.googleapis.com/maps/api/place/search/json?location=" + vitri.latitude + "," + vitri.longitude + "&radius=500&types=convenience_store&keyword="+namePlace+"&key=" + SystemConfig.GOOGLE_API_KEY;
             return url;
         }
-        public class LoadImage extends AsyncTask<Object,Void,Bitmap>{
 
+        public class LoadImage extends AsyncTask<Object,Void,Bitmap>{
             Bitmap bitmap;
             Marker a;
             @Override
             protected Bitmap doInBackground(Object... objects) {
-                a= (Marker) objects[1];
+                a = (Marker) objects[1];
                 try {
                     URL url=new URL((String) objects[0]);
                     InputStream inputStream=url.openConnection().getInputStream();
@@ -714,9 +629,8 @@ public class MainActivity extends AppCompatActivity
             protected void onPostExecute(Bitmap bitmap) {
                 a.setTag(bitmap);
             }
-
-
         }
+
         //nhan mess tu tra cuu
         public String ReciveMess() {
             String mess = "";
@@ -727,16 +641,12 @@ public class MainActivity extends AppCompatActivity
                     mess = bundle.getString("MESS");
                     namePlace=mess;
                     nameLocation=mess;
-
                 }
-
             }
-
             return mess;
         }
 
         private void ShowDialogTimDuong() {
-            Log.d("show Dialog", "tim duong");
             findDialog = new Dialog(this);
             findDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
             findDialog.setContentView(R.layout.activity_timduong);
@@ -745,8 +655,6 @@ public class MainActivity extends AppCompatActivity
             Button exit = findDialog.findViewById(R.id.exitBtn);
             from = findDialog.findViewById(R.id.fromTxt);
             to = findDialog.findViewById(R.id.toTxt);
-
-
             from.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -755,7 +663,6 @@ public class MainActivity extends AppCompatActivity
                     openAutocompleteActivity();
                 }
             });
-
             to.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -763,7 +670,6 @@ public class MainActivity extends AppCompatActivity
                     openAutocompleteActivity();
                 }
             });
-
             find.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -780,7 +686,6 @@ public class MainActivity extends AppCompatActivity
         }
 
         private void openAutocompleteActivity() {
-            Log.d("autocomplete", "opened");
             try {
                 AutocompleteFilter autocompleteFilter = new AutocompleteFilter.Builder().setCountry("VN").build();
                 Intent intent = new PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_OVERLAY)
@@ -803,24 +708,23 @@ public class MainActivity extends AppCompatActivity
                 Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
             }
         }
-        private void sendRequest2(String from,String to,String mode){
 
-            try {
-                new FindDirection(this, from,to, mode).execute();
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            }
-        }
+//        private void sendRequest2(String from,String to,String mode){
+//
+//            try {
+//                new FindDirection(this, from,to, mode).execute();
+//            } catch (UnsupportedEncodingException e) {
+//                e.printStackTrace();
+//            }
+//        }
+
         private void sendRequest() {
-            Log.d("send Request", "done");
             String fromTxt = from.getText().toString();
             String toTxt = to.getText().toString();
             String modeTxt = "driving"; //walking , driving
-
             if (mode == 1) {
                 modeTxt = "walking";
             }
-
             if (fromTxt.isEmpty()) {
                 Toast.makeText(this, "Nhập địa điểm xuất phát", Toast.LENGTH_SHORT).show();
                 return;
@@ -836,7 +740,6 @@ public class MainActivity extends AppCompatActivity
                 e.printStackTrace();
             }
         }
-
 
         public void onDirectionFinderStart() {
             progressDialog = ProgressDialog.show(this, "Please wait...","Finding ...", true);
@@ -910,14 +813,11 @@ public class MainActivity extends AppCompatActivity
         @Override
         protected void onActivityResult(int requestCode, int resultCode, Intent data) {
             super.onActivityResult(requestCode, resultCode, data);
-
             // Check that the result was from the autocomplete widget.
             if (requestCode == REQUEST_CODE_AUTOCOMPLETE) {
                 if (resultCode == RESULT_OK) {
                     // Get the user's selected place from the Intent.
                     Place place = PlaceAutocomplete.getPlace(this, data);
-
-
                     if (editPlace == 0) {
                         from.setText(place.getName() + ", " + place.getAddress());
                     }
@@ -925,9 +825,7 @@ public class MainActivity extends AppCompatActivity
                         to.setText(place.getName() + ", " + place.getAddress());
                     }
                     else if (editPlace == 2) {
-
                         LatLng near = new LatLng(place.getLatLng().latitude, place.getLatLng().longitude);
-
                         CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(near, 17);
                         map.moveCamera(cameraUpdate);
                         MarkerOptions markerOptions = new MarkerOptions();
@@ -954,14 +852,11 @@ public class MainActivity extends AppCompatActivity
         }
 
         public void modeOnClick(View view) {
-
             RadioButton walk = (RadioButton) typeDialog.findViewById(R.id.rdbWalk);
             RadioButton drive = (RadioButton) typeDialog.findViewById(R.id.rdbCar);
-
             if (view.getId() == R.id.rdbWalk) {
                 drive.setChecked(false);
                 mode = 1;
-
             }
             if (view.getId() == R.id.rdbCar) {
                 walk.setChecked(false);

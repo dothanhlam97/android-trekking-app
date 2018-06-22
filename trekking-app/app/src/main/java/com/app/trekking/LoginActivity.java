@@ -38,11 +38,9 @@ public class LoginActivity extends AppCompatActivity {
     String email = "";
     String profilePicUrl = "";
     Button CustomLogin;
-    //--------------------------------------------Thêm
     String gender = "";
     String dob = "";
     CheckBox ckbDieuKhoan;
-    //
     CallbackManager callbackManager;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -160,8 +158,6 @@ public class LoginActivity extends AppCompatActivity {
         //
         startActivity(intent);
     }
-
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

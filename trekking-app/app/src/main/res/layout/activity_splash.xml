@@ -16,9 +16,10 @@
         <ImageView
             android:id="@+id/imgSplash"
             android:layout_width="match_parent"
-            android:layout_height="250dp"
+            android:layout_height="200dp"
             android:layout_gravity="center"
-            android:src="@drawable/background_main" />
+            android:layout_marginTop="100dp"
+            android:src="@drawable/ic_trekking" />
 
         <TextView
             android:id="@+id/txtSplash"
@@ -33,22 +34,18 @@
             android:textStyle="bold"
             android:layout_marginBottom="10dp"
             />
-
-        <ImageView
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:layout_gravity="center"
-            android:src="@drawable/loading"
-            android:layout_marginTop="-60sp"
-            android:layout_marginBottom="-50dp"/>
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="When you go to your limits, \nyour limits expand."
-            android:textSize="30dp"
-            android:gravity="center"
-            android:textColor="@color/colorMain"
-            android:fontFamily="@font/jennifer_lynne"/>
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:text="Author: dothanhlam97@github.com"
+            android:textColor="@color/colorText"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="10dp"
+            />
+
 
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

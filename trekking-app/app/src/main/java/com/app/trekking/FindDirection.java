@@ -33,7 +33,7 @@ public class FindDirection {
         this.destination = destination;
         this.mode = mode;
     }
-    // Tao url de lay du lieu json
+
     public void execute() throws UnsupportedEncodingException {
         listener.onDirectionFinderStart();
         new DownloadData().execute(createUrl());
