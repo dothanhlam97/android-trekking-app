@@ -107,41 +107,33 @@ public class MainActivity extends AppCompatActivity
         private String namePlace = "";
         private  Animation moveCrossover, moveTop, moveLeft, controlFabForward, controlFabBackward;
         private boolean checkShowHide = true;
-
-
-
-
-        private ArrayList<ReadJson> arrayReadJS=new ArrayList<ReadJson>();
-        private ArrayList<ReadJson> arrayReadJSAutoComplete =new ArrayList<ReadJson>();
-        private ArrayList<LoadImage> arrayLoadIM=new ArrayList<LoadImage>();
-        private int mode = 0; //default=drive
-        private int type = 0; //Normal
-        private int theme = 0; //Light
         private Dialog findDialog, typeDialog,themeDialog,oDialog;
+        private int mode = 0; //default=drive
         private EditText from, to;
         private static int editPlace = -1;
-        private static final int REQUEST_CODE_AUTOCOMPLETE = 1;
         private List<Marker> originMarker = new ArrayList<>();
         private List<Marker> destinationMarker = new ArrayList<>();
         private List<Polyline> polylinePaths = new ArrayList<>();
         private ProgressDialog progressDialog;
-        private EditText searchBar;
         private ImageView imgLogo;
         Bitmap smallHuman;
         Bitmap smallCar;
         Bitmap smallMarker;
-        private TextView txtUsername;
-        private TextView txtEmail;
-        private String UserName = "";
-        private String Email = "";
-        String profilePicUrl = "";
-        public static boolean isLogin = false;
+        private ArrayList<ReadJson> arrayReadJS=new ArrayList<ReadJson>();
+        private ArrayList<LoadImage> arrayLoadIM=new ArrayList<LoadImage>();
+        private SupportMapFragment mapFragment;
         public static String nameLocation = "";
 
-        String Gender = "";
-        String Dob = "";
 
-        private SupportMapFragment mapFragment;
+//        private TextView txtUsername;
+//        private TextView txtEmail;
+//        private String UserName = "";
+//        private String Email = "";
+//        String profilePicUrl = "";
+//        public static boolean isLogin = false;
+//        String Gender = "";
+//        String Dob = "";
+
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -149,9 +141,6 @@ public class MainActivity extends AppCompatActivity
             setContentView(R.layout.activity_main);
 //          // create database
             DatabaseHelper database = new DatabaseHelper(this);
-
-
-
 
             // create map
             mapFragment =
@@ -175,78 +164,73 @@ public class MainActivity extends AppCompatActivity
             NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
             navigationView.setNavigationItemSelectedListener(this);
 
-            if (isLogin) {
-                HideItem();
-            }
+//            if (isLogin) {
+//                HideItem();
+//            }
+//
+//            final Intent intent = getIntent();
 
-            final Intent intent = getIntent();
-
-            if (intent != null) {
-
-                UserName = intent.getStringExtra(LoginActivity.USERNAME);
-                Email = intent.getStringExtra(LoginActivity.EMAIL);
-                profilePicUrl = intent.getStringExtra(LoginActivity.PIC_URL);
-
-                //-----------------------------------------------------------------Thêm
-                Gender = intent.getStringExtra(LoginActivity.GENDER);
-                Dob = intent.getStringExtra(LoginActivity.DOB);
-                //
-                try {
-                    if (Build.VERSION.SDK_INT > 9) {
-                        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-                        StrictMode.setThreadPolicy(policy);
-
-                        URL fb_url = new URL(profilePicUrl);//small | noraml | large
-                        HttpsURLConnection conn1 = (HttpsURLConnection) fb_url.openConnection();
-                        HttpsURLConnection.setFollowRedirects(true);
-                        conn1.setInstanceFollowRedirects(true);
-                        Bitmap fb_img = BitmapFactory.decodeStream(conn1.getInputStream());
-
-                        Bitmap circularBitmap = ImageConverter.getRoundedCornerBitmap(fb_img, 100);
-
-                        imgLogo = navigationView.getHeaderView(0).findViewById(R.id.imgLogo);
-                        imgLogo.setImageBitmap(circularBitmap);
-
-                        imgLogo.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                Intent intent1 = new Intent(MainActivity.this, UserInfoActivity.class);
-
-                                //-----------------------------------------------------------------Thêm
-                                intent1.putExtra(LoginActivity.USERNAME, UserName);
-                                intent1.putExtra(LoginActivity.EMAIL, Email);
-                                intent1.putExtra(LoginActivity.DOB, Dob);
-                                intent1.putExtra(LoginActivity.GENDER, Gender);
-                                intent1.putExtra(LoginActivity.PIC_URL, profilePicUrl);
-                                //
-                                startActivity(intent1);
-                            }
-                        });
-                    }
-                }catch (Exception ex) {
-                    ex.printStackTrace();
-                }
-
-            }
+//            if (intent != null) {
+//
+//                UserName = intent.getStringExtra(LoginActivity.USERNAME);
+//                Email = intent.getStringExtra(LoginActivity.EMAIL);
+//                profilePicUrl = intent.getStringExtra(LoginActivity.PIC_URL);
+//
+//                //-----------------------------------------------------------------Thêm
+//                Gender = intent.getStringExtra(LoginActivity.GENDER);
+//                Dob = intent.getStringExtra(LoginActivity.DOB);
+//                //
+//                try {
+//                    if (Build.VERSION.SDK_INT > 9) {
+//                        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+//                        StrictMode.setThreadPolicy(policy);
+//
+//                        URL fb_url = new URL(profilePicUrl);//small | noraml | large
+//                        HttpsURLConnection conn1 = (HttpsURLConnection) fb_url.openConnection();
+//                        HttpsURLConnection.setFollowRedirects(true);
+//                        conn1.setInstanceFollowRedirects(true);
+//                        Bitmap fb_img = BitmapFactory.decodeStream(conn1.getInputStream());
+//
+//                        Bitmap circularBitmap = ImageConverter.getRoundedCornerBitmap(fb_img, 100);
+//
+//                        imgLogo = navigationView.getHeaderView(0).findViewById(R.id.imgLogo);
+//                        imgLogo.setImageBitmap(circularBitmap);
+//
+//                        imgLogo.setOnClickListener(new View.OnClickListener() {
+//                            @Override
+//                            public void onClick(View view) {
+//                                Intent intent1 = new Intent(MainActivity.this, UserInfoActivity.class);
+//
+//                                //-----------------------------------------------------------------Thêm
+//                                intent1.putExtra(LoginActivity.USERNAME, UserName);
+//                                intent1.putExtra(LoginActivity.EMAIL, Email);
+//                                intent1.putExtra(LoginActivity.DOB, Dob);
+//                                intent1.putExtra(LoginActivity.GENDER, Gender);
+//                                intent1.putExtra(LoginActivity.PIC_URL, profilePicUrl);
+//                                //
+//                                startActivity(intent1);
+//                            }
+//                        });
+//                    }
+//                }catch (Exception ex) {
+//                    ex.printStackTrace();
+//                }
+//
+//            }
+//            txtUsername = navigationView.getHeaderView(0).findViewById(R.id.txtUserName);
+//            txtUsername.setText(UserName);
+//
+//            txtEmail = navigationView.getHeaderView(0).findViewById(R.id.txtEmail);
+//            txtEmail.setText(Email);
 
 
             Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
             setSupportActionBar(toolbar);
-
-
             DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
             ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                     this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
             drawer.addDrawerListener(toggle);
             toggle.syncState();
-
-
-            txtUsername = navigationView.getHeaderView(0).findViewById(R.id.txtUserName);
-            txtUsername.setText(UserName);
-
-            txtEmail = navigationView.getHeaderView(0).findViewById(R.id.txtEmail);
-            txtEmail.setText(Email);
-
             ReciveMess();
 
 
@@ -445,7 +429,7 @@ public class MainActivity extends AppCompatActivity
                     startActivity(intent);
                     break;
                 case R.id.navLogout:
-                    disconnectFromFacebook();
+//                    disconnectFromFacebook();
                     break;
             }
             DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -454,19 +438,19 @@ public class MainActivity extends AppCompatActivity
         }
 
         // log out
-        private void disconnectFromFacebook() {
-            LoginManager.getInstance().logOut();
-            NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-            Menu nav_Menu = navigationView.getMenu();
-            nav_Menu.findItem(R.id.navLogin).setVisible(true);
-            nav_Menu.findItem(R.id.navLogout).setVisible(false);
-            UserName = "";
-            Email = "";
-            profilePicUrl = "";
-            isLogin = false;
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-            startActivity(intent);
-        }
+//        private void disconnectFromFacebook() {
+//            LoginManager.getInstance().logOut();
+//            NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+//            Menu nav_Menu = navigationView.getMenu();
+//            nav_Menu.findItem(R.id.navLogin).setVisible(true);
+//            nav_Menu.findItem(R.id.navLogout).setVisible(false);
+////            UserName = "";
+////            Email = "";
+//            profilePicUrl = "";
+//            isLogin = false;
+//            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+//            startActivity(intent);
+//        }
 
         @Override
         public void onCameraIdle() {
@@ -624,7 +608,6 @@ public class MainActivity extends AppCompatActivity
                 }
                 return bitmap;
             }
-
             @Override
             protected void onPostExecute(Bitmap bitmap) {
                 a.setTag(bitmap);
@@ -639,8 +622,8 @@ public class MainActivity extends AppCompatActivity
                 Bundle bundle = intent.getBundleExtra("BUNDLE");
                 if (bundle != null) {
                     mess = bundle.getString("MESS");
-                    namePlace=mess;
-                    nameLocation=mess;
+                    namePlace = mess;
+                    nameLocation = mess;
                 }
             }
             return mess;
@@ -659,7 +642,6 @@ public class MainActivity extends AppCompatActivity
                 @Override
                 public void onClick(View view) {
                     editPlace = 0;
-                    Log.d("from", "opened");
                     openAutocompleteActivity();
                 }
             });
@@ -691,16 +673,12 @@ public class MainActivity extends AppCompatActivity
                 Intent intent = new PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_OVERLAY)
                         .setFilter(autocompleteFilter)
                         .build(this);
-
-                Log.d("asdasd", "ble ble");
-                startActivityForResult(intent, REQUEST_CODE_AUTOCOMPLETE);
+                startActivityForResult(intent, SystemConfig.REQUEST_CODE_AUTOCOMPLETE);
             }
             catch (GooglePlayServicesRepairableException e) {
-                Log.d("error", e.toString());
                 //User doesn't have Google Play Services
                 GoogleApiAvailability.getInstance().getErrorDialog(this, e.getConnectionStatusCode(),0).show();
             } catch (GooglePlayServicesNotAvailableException e) {
-                Log.d("error", e.toString());
                 // Indicates that Google Play Services is not available and the problem is not easily
                 // resolvable.
                 String message = "Google Play Services is not available: " +
@@ -743,19 +721,16 @@ public class MainActivity extends AppCompatActivity
 
         public void onDirectionFinderStart() {
             progressDialog = ProgressDialog.show(this, "Please wait...","Finding ...", true);
-
             if (originMarker != null) {
                 for (Marker marker : originMarker) {
                     marker.remove();
                 }
             }
-
             if (destinationMarker != null) {
                 for (Marker marker : destinationMarker) {
                     marker.remove();
                 }
             }
-
             if (polylinePaths != null) {
                 for (Polyline polyline:polylinePaths ) {
                     polyline.remove();
@@ -769,13 +744,10 @@ public class MainActivity extends AppCompatActivity
             polylinePaths = new ArrayList<>();
             originMarker = new ArrayList<>();
             destinationMarker = new ArrayList<>();
-
             for (Router route : routes) {
                 map.moveCamera(CameraUpdateFactory.newLatLngZoom(route.startLocation, 15));
-
                 BitmapDescriptor current;
                 List<PatternItem> polyLine;
-
                 if (mode == 0) {
                     current = BitmapDescriptorFactory.fromBitmap(smallCar);
                     polyLine = null;
@@ -794,17 +766,13 @@ public class MainActivity extends AppCompatActivity
                         .title("")
                         .position(route.endLocation)));
                 end.setTag("Đi Đến Đây");
-
                 PolylineOptions polylineOptions = new PolylineOptions().
                         geodesic(true).
                         color(Color.argb(255, 52, 152, 219)).
                         pattern(polyLine).
                         width(20);
-
-
                 for (int i = 0; i < route.points.size(); i++)
                     polylineOptions.add(route.points.get(i));
-
                 polylinePaths.add(map.addPolyline(polylineOptions));
             }
             mode = 0;
@@ -814,7 +782,7 @@ public class MainActivity extends AppCompatActivity
         protected void onActivityResult(int requestCode, int resultCode, Intent data) {
             super.onActivityResult(requestCode, resultCode, data);
             // Check that the result was from the autocomplete widget.
-            if (requestCode == REQUEST_CODE_AUTOCOMPLETE) {
+            if (requestCode == SystemConfig.REQUEST_CODE_AUTOCOMPLETE) {
                 if (resultCode == RESULT_OK) {
                     // Get the user's selected place from the Intent.
                     Place place = PlaceAutocomplete.getPlace(this, data);
@@ -845,10 +813,53 @@ public class MainActivity extends AppCompatActivity
             }
         }
 
-        public void swapOnClick(View view) {
-            String tmp = from.getText().toString();
-            from.setText(to.getText().toString());
-            to.setText(tmp);
+        private void ShowDialogSetting() {
+            // Chon loai ban do
+            typeDialog = new Dialog(this);
+            typeDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            typeDialog.setContentView(R.layout.activity_maptype);
+            typeDialog.setCanceledOnTouchOutside(true);
+            RadioButton normalBtn = (RadioButton) typeDialog.findViewById(R.id.rdbNormal);
+            RadioButton hybridBtn = (RadioButton) typeDialog.findViewById(R.id.rdbHybrid);
+            RadioButton terrainBtn = (RadioButton) typeDialog.findViewById(R.id.rdbTerrain);
+            normalBtn.setChecked(true);
+            hybridBtn.setChecked(false);
+            terrainBtn.setChecked(false);
+            Switch themeBtn = (Switch) typeDialog.findViewById(R.id.themeSwitch);
+            themeBtn.setChecked(false);
+            map.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.light_style_json));
+            RadioButton walk = (RadioButton) typeDialog.findViewById(R.id.rdbWalk);
+            RadioButton drive = (RadioButton) typeDialog.findViewById(R.id.rdbCar);
+            walk.setChecked(true);
+            drive.setChecked(false);
+            mode = 0;
+            typeDialog.show();
+        }
+
+        public void typeOnClick(View view) {
+            RadioButton normalBtn = (RadioButton) typeDialog.findViewById(R.id.rdbNormal);
+            RadioButton hybridBtn = (RadioButton) typeDialog.findViewById(R.id.rdbHybrid);
+            RadioButton terrainBtn = (RadioButton) typeDialog.findViewById(R.id.rdbTerrain);
+            switch (view.getId()) {
+                case R.id.rdbNormal:
+                    hybridBtn.setChecked(false);
+                    terrainBtn.setChecked(false);
+                    normalBtn.setChecked(true);
+                    map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+                    break;
+                case R.id.rdbHybrid:
+                    hybridBtn.setChecked(true);
+                    normalBtn.setChecked(false);
+                    terrainBtn.setChecked(false);
+                    map.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
+                    break;
+                case R.id.rdbTerrain:
+                    normalBtn.setChecked(false);
+                    hybridBtn.setChecked(false);
+                    terrainBtn.setChecked(true);
+                    map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+                    break;
+            }
         }
 
         public void modeOnClick(View view) {
@@ -856,89 +867,34 @@ public class MainActivity extends AppCompatActivity
             RadioButton drive = (RadioButton) typeDialog.findViewById(R.id.rdbCar);
             if (view.getId() == R.id.rdbWalk) {
                 drive.setChecked(false);
+                walk.setChecked(true);
                 mode = 1;
             }
             if (view.getId() == R.id.rdbCar) {
                 walk.setChecked(false);
+                drive.setChecked(true);
                 mode = 0;
             }
         }
 
-        public void typeOnClick(View view) {
-            RadioButton normalBtn = (RadioButton) typeDialog.findViewById(R.id.rdbNormal);
-            RadioButton hybridBtn = (RadioButton) typeDialog.findViewById(R.id.rdbHybrid);
-            RadioButton terrainBtn = (RadioButton) typeDialog.findViewById(R.id.rdbTerrain);
-
-            if (view.getId() == R.id.rdbNormal) {
-                hybridBtn.setChecked(false);
-                terrainBtn.setChecked(false);
-                type = 0;
-            }
-            else if (view.getId() == R.id.rdbHybrid) {
-                normalBtn.setChecked(false);
-                terrainBtn.setChecked(false);
-                type = 1;
-            }
-            else if (view.getId() == R.id.rdbTerrain) {
-                normalBtn.setChecked(false);
-                hybridBtn.setChecked(false);
-                type = 2;
-            }
-            if (type == 0) {
-                map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-            }
-            else if (type == 1) {
-                map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
-            }
-            else if (type == 2) {
-                map.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
-            }
-        }
-
-        private void ShowDialogSetting() {
-            // Chon loai ban do
-            typeDialog = new Dialog(this);
-            typeDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-            typeDialog.setContentView(R.layout.activity_maptype);
-            typeDialog.setCanceledOnTouchOutside(true);
-
-            RadioButton normalBtn = (RadioButton) typeDialog.findViewById(R.id.rdbNormal);
-            RadioButton hybridBtn = (RadioButton) typeDialog.findViewById(R.id.rdbHybrid);
-            RadioButton terrainBtn = (RadioButton) typeDialog.findViewById(R.id.rdbTerrain);
-            if (type == 0) {
-                normalBtn.setChecked(true);
-            }
-            else if (type == 1) {
-                hybridBtn.setChecked(true);
-            }
-            else {
-                terrainBtn.setChecked(true);
-            }
-            // Chon theme
-
-            Switch themeBtn = (Switch) typeDialog.findViewById(R.id.themeSwitch);
-
-            if (theme == 1) {
-                themeBtn.setChecked(true);
-            }
-
-            typeDialog.show();
-        }
-
         public void themeOnClick(View view) {
             Switch themeBtn = (Switch) typeDialog.findViewById(R.id.themeSwitch);
-
-            if (theme == 0) {
-                theme = 1;
+            if (themeBtn.isChecked() == true) {
+                themeBtn.setChecked(false);
+                map.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.light_style_json));
+            } else {
                 themeBtn.setChecked(true);
                 map.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.dark_style_json));
             }
-            else {
-                theme = 0;
-                themeBtn.setChecked(false);
-                map.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.light_style_json));
-            }
         }
+
+        public void swapOnClick(View view) {
+            String tmp = from.getText().toString();
+            from.setText(to.getText().toString());
+            to.setText(tmp);
+        }
+
+
         public Marker MARKER = null;
         private void ShowDialogTransportSelection(final Marker marker2) {
             oDialog = new Dialog(this);

@@ -153,8 +153,7 @@ public class LoginActivity extends AppCompatActivity {
         intent.putExtra(GENDER, gender);
         intent.putExtra(DOB, dob);
         // Ẩn cái đăng nhập đi
-        MainActivity.isLogin = true;
-
+        // MainActivity.isLogin = true;
         //
         startActivity(intent);
     }

@@ -9,5 +9,6 @@ public class SystemConfig {
     public static int DATABASE_VERSION = 1;
     public static final String GOOGLE_API_KEY = "AIzaSyAfAGWP3hSqruk1pWEaCnLd_VT-wmLHHvU";
     public static final int REQUEST_LOCATION = 1;
+    public static final int REQUEST_CODE_AUTOCOMPLETE = 1;
     public static boolean PERMISSION_ACCESS_LOCATION = true;
 }
