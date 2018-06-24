@@ -1,5 +1,6 @@
 package com.app.trekking;
 import com.app.trekking.database.DatabaseHelper;
+import com.app.trekking.database.DatabaseController;
 import com.app.trekking.controller.favController;
 
 import android.Manifest;
@@ -10,6 +11,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -139,8 +142,20 @@ public class MainActivity extends AppCompatActivity
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_main);
+            DatabaseController database = new DatabaseController(this);
+            database.add("ahuhu", 1);
+            Cursor cursor = database.getAll();
+            for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+                // do what you need with the cursor here
+                Log.d("cursor0", cursor.getString(0));
+                Log.d("cursor1", cursor.getString(1));
+            }
+
+//            database.
 //          // create database
-            DatabaseHelper database = new DatabaseHelper(this);
+//            DatabaseHelper database = new DatabaseHelper(this);
+//            Log.d("database name", database.getDatabaseName());
+//            SQLiteDatabase databaseController = new SQLiteDatabase()
 
             // create map
             mapFragment =
