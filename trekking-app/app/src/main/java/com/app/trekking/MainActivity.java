@@ -143,13 +143,16 @@ public class MainActivity extends AppCompatActivity
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_main);
             DatabaseController database = new DatabaseController(this);
-            database.add("ahuhu", 1);
-            Cursor cursor = database.getAll();
-            for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-                // do what you need with the cursor here
-                Log.d("cursor0", cursor.getString(0));
-                Log.d("cursor1", cursor.getString(1));
-            }
+            database.addUser("Thanh Lam", "dothanhlam97", "testing");
+            Boolean isValidAccount = database.validateUser("dothanhlam97", "testing", 0);
+
+//            database.add("ahuhu", 1);
+//            Cursor cursor = database.getAll();
+//            for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+//                // do what you need with the cursor here
+//                Log.d("cursor0", cursor.getString(0));
+//                Log.d("cursor1", cursor.getString(1));
+//            }
 
 //            database.
 //          // create database

@@ -7,6 +7,12 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.app.trekking.SystemConfig;
+
+import java.io.FileInputStream;
+import java.security.MessageDigest;
+import java.util.ArrayList;
+
 /**
  * Class that wraps the most common database operations. This example assumes you want a single table and data entity
  * with two properties: a title and a priority as an integer. Modify in all relevant locations if you need other/more
@@ -28,23 +34,143 @@ public class DatabaseController {
      */
     class SimpleSQLiteOpenHelper extends SQLiteOpenHelper {
         SimpleSQLiteOpenHelper(Context context) {
-            super(context, "main.db", null, 1);
+            super(context, "Test123.db", null, 2);
             Log.d("abc", "abc");
         }
 
         @Override
         public void onCreate(SQLiteDatabase db) {
-            db.execSQL("create table todos (_id integer primary key autoincrement, title text, priority integer)");
-            Log.d("create", "database");
-
+            db.execSQL("create table " + DatabaseConfig.userTableName +
+                    " (_id integer primary key autoincrement, " +
+                    " " + DatabaseConfig.nameUserColumn + " text," +
+                    " " + DatabaseConfig.emailUserColumn + " text," +
+                    " " + DatabaseConfig.passwordUserColumn + " text," +
+                    " " + DatabaseConfig.typeUserColumn + " integer)");
+//            db.execSQL("create table " + DatabaseConfig.companyTableName +
+//                    " (_id integer primary key autoincrement, " +
+//                    " " + DatabaseConfig.nameCompanyColumn + " text," +
+//                    " " + DatabaseConfig.descriptionCompanyColumn + " text," +
+//                    " " + DatabaseConfig.locationCompanyColumn + " integer)");
+//            db.execSQL("create table " + DatabaseConfig.locationTableName +
+//                    " (_id integer primary key autoincrement, " +
+//                    " " + DatabaseConfig.latitudeLocationColumn + " integer," +
+//                    " " + DatabaseConfig.longitudeLocationColumn + " integer," +
+//                    " " + DatabaseConfig.nameLocationColumn + " text)");
+//            db.execSQL("create table " + DatabaseConfig.tourTableName +
+//                    " (_id integer primary key autoincrement, " +
+//                    " " + DatabaseConfig.idTourLocationInfoColumn + " integer," +
+//                    " " + DatabaseConfig.userTourColumn + " integer," +
+//                    " " + DatabaseConfig.dateTourColumn + " integer)");
+//            db.execSQL("create table " + DatabaseConfig.locationInfoTableName +
+//                    " (_id integer primary key autoincrement, " +
+//                    " " + DatabaseConfig.idLocationLocationInfoColumn + " integer," +
+//                    " " + DatabaseConfig.idTourLocationInfoColumn + " integer");
+//            Log.d("create", "database");
         }
 
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         }
+    }
 
-        private void createTable() {
+    private String hashPassword(String password) {
+        int hash = 7;
+        for (int i = 0; i < password.length(); i++) {
+            hash = hash*31 + password.charAt(i);
+        }
+        return Integer.toHexString(hash);
+    }
 
+    public long addUser(String name, String email, String password) {
+        SQLiteDatabase db = _openHelper.getWritableDatabase();
+        if (db == null) {
+            return 0;
+        }
+        ContentValues row = new ContentValues();
+        row.put(DatabaseConfig.nameUserColumn, name);
+        row.put(DatabaseConfig.emailUserColumn, email);
+        row.put(DatabaseConfig.passwordUserColumn, hashPassword(password));
+        row.put(DatabaseConfig.typeUserColumn, 0);
+        long id;
+        try {
+
+            id = db.insert(DatabaseConfig.userTableName, null, row);
+        }
+        catch (Exception e) {
+         /* This is a generic Exception handler which means it can handle
+          * all the exceptions. This will execute if the exception is not
+          * handled by previous catch blocks.
+          */
+            Log.e("addUser", e.toString());
+            id = -1;
+        }
+        db.close();
+        return id;
+    }
+
+    public Cursor getUser(Integer _id, String _name, String _email, Integer _type) {
+        SQLiteDatabase db = _openHelper.getReadableDatabase();
+        if (db == null) {
+            return null;
+        }
+        Boolean mark = false;
+        String query = "select * " +
+                "from " + DatabaseConfig.userTableName;
+        if (_id != -1) {
+            if (mark) {
+                query += " AND " + DatabaseConfig.idColumn + "= \"" + _id.toString() + "\"";
+            } else {
+                query += " WHERE " + DatabaseConfig.idColumn + "= \"" + _id.toString() + "\"";
+                mark = true;
+            }
+        }
+        if (_name != "") {
+            if (mark) {
+                query += " AND " + DatabaseConfig.nameUserColumn + "= \"" + _name + "\"";
+            } else {
+                query += " WHERE " + DatabaseConfig.nameUserColumn + "= \"" + _name + "\"";
+                mark = true;
+            }
+        }
+        if (_email != "") {
+            if (mark) {
+                query += " AND " + DatabaseConfig.emailUserColumn + "= \"" + _email + "\"";
+            } else {
+                query += " WHERE " + DatabaseConfig.emailUserColumn + "= \"" + _email + "\"";
+                mark = true;
+            }
+        }
+        if (_type != -1) {
+            if (mark) {
+                query += " AND " + DatabaseConfig.typeUserColumn + "= \"" + _type.toString() + "\"";
+            } else {
+                query += " WHERE " + DatabaseConfig.typeUserColumn + "= \"" + _type.toString() + "\"";
+                mark = true;
+            }
+        }
+        Cursor cur = db.rawQuery(query, null);
+        return cur;
+    }
+
+    public boolean validateUser(String email, String password, int _type) {
+        Cursor cur = getUser(-1, "", email, _type);
+        password = hashPassword(password);
+        if (cur.getCount() == 0) {
+            return false;
+        }
+        cur.moveToFirst();
+        if (password.compareTo(cur.getString(3)) == 0) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isUserInDatabase(String email, int _type) {
+        Cursor cur = getUser(-1, "", email, _type);
+        if (cur.getCount() == 0) {
+            return false;
+        } else {
+            return true;
         }
     }
 
