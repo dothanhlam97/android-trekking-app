@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -46,10 +47,8 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
-        getSupportActionBar().setTitle("Feedback");
+//        getSupportActionBar().setTitle("Feedback");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-
         getSupportActionBar().setTitle("Login");
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -88,6 +87,18 @@ public class LoginActivity extends AppCompatActivity {
                 else {
                     Toast.makeText(LoginActivity.this, "Accept the terms and license.", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+
+        onLogin();
+    }
+
+    public void onLogin() {
+        Button loginBtn = (Button) findViewById(R.id.login_btn);
+        loginBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("hehe", "hay qua");
             }
         });
     }
