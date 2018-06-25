@@ -152,17 +152,17 @@ public class DatabaseController {
         return cur;
     }
 
-    public boolean validateUser(String email, String password, int _type) {
-        Cursor cur = getUser(-1, "", email, _type);
+    public int validateUser(String email, String password) {
+        Cursor cur = getUser(-1, "", email, -1);
         password = hashPassword(password);
         if (cur.getCount() == 0) {
-            return false;
+            return -1;
         }
         cur.moveToFirst();
         if (password.compareTo(cur.getString(3)) == 0) {
-            return true;
+            return Integer.parseInt(cur.getString(0));
         }
-        return false;
+        return -1;
     }
 
     public boolean isUserInDatabase(String email, int _type) {
@@ -172,6 +172,10 @@ public class DatabaseController {
         } else {
             return true;
         }
+    }
+
+    public Cursor getUserById(Integer _id) {
+        return getUser(_id, "", "", -1);
     }
 
     /**

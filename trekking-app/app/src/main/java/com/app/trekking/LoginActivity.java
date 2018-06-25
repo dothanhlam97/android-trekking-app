@@ -1,18 +1,22 @@
 package com.app.trekking;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.annotation.Nullable;
+import android.support.design.widget.NavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.app.trekking.database.DatabaseController;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -43,6 +47,8 @@ public class LoginActivity extends AppCompatActivity {
     String dob = "";
     CheckBox ckbDieuKhoan;
     CallbackManager callbackManager;
+    DatabaseController databaseController;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,9 +59,10 @@ public class LoginActivity extends AppCompatActivity {
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // custom login facebook
-        CustomLogin = (Button) findViewById(R.id.btnDangNhapByFace);
+//        CustomLogin = (Button) findViewById(R.id.btnDangNhapByFace);
 
         callbackManager = CallbackManager.Factory.create();
+        databaseController = new DatabaseController(getApplicationContext());
 
         // custom
 
@@ -77,18 +84,18 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        CustomLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ckbDieuKhoan = (CheckBox) findViewById(R.id.ckbDieuKhoan);
-                if (ckbDieuKhoan.isChecked()) {
-                    LoginManager.getInstance().logInWithReadPermissions(LoginActivity.this, Arrays.asList("public_profile","email","user_friends"));
-                }
-                else {
-                    Toast.makeText(LoginActivity.this, "Accept the terms and license.", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+//        CustomLogin.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                ckbDieuKhoan = (CheckBox) findViewById(R.id.ckbDieuKhoan);
+//                if (ckbDieuKhoan.isChecked()) {
+//                    LoginManager.getInstance().logInWithReadPermissions(LoginActivity.this, Arrays.asList("public_profile","email","user_friends"));
+//                }
+//                else {
+//                    Toast.makeText(LoginActivity.this, "Accept the terms and license.", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        });
 
         onLogin();
     }
@@ -98,7 +105,33 @@ public class LoginActivity extends AppCompatActivity {
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("hehe", "hay qua");
+                EditText email = (EditText) findViewById(R.id.login_email);
+                EditText password = (EditText) findViewById(R.id.login_password);
+                String email_content = email.getText().toString();
+                String password_content = password.getText().toString();
+                int id = databaseController.validateUser(email_content, password_content);
+                Cursor cur = databaseController.getUserById(id);
+                if (cur != null) {
+                    cur.moveToFirst();
+                    Log.d("username", cur.getString(1));
+                    MainActivity.UserName = cur.getString(1);
+                    MainActivity.isLogin = true;
+                }
+            }
+        });
+    }
+
+    public static void onLogout() {
+        Log.d("there", "there");
+        MainActivity.UserName = "";
+        MainActivity.isLogin = false;
+    }
+
+    public void signupOnLick() {
+        Button signupBtn = (Button) findViewById(R.id.signup);
+        signupBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
             }
         });
     }

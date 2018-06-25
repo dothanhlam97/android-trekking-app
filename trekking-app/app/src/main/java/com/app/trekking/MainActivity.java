@@ -130,10 +130,10 @@ public class MainActivity extends AppCompatActivity
 
 //        private TextView txtUsername;
 //        private TextView txtEmail;
-//        private String UserName = "";
+        public static String UserName = "";
 //        private String Email = "";
 //        String profilePicUrl = "";
-//        public static boolean isLogin = false;
+        public static boolean isLogin = false;
 //        String Gender = "";
 //        String Dob = "";
 
@@ -144,7 +144,7 @@ public class MainActivity extends AppCompatActivity
             setContentView(R.layout.activity_main);
             DatabaseController database = new DatabaseController(this);
             database.addUser("Thanh Lam", "dothanhlam97", "testing");
-            Boolean isValidAccount = database.validateUser("dothanhlam97", "testing", 0);
+//            Boolean isValidAccount = database.validateUser("dothanhlam97", "testing", 0);
 
 //            database.add("ahuhu", 1);
 //            Cursor cursor = database.getAll();
@@ -182,9 +182,13 @@ public class MainActivity extends AppCompatActivity
             NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
             navigationView.setNavigationItemSelectedListener(this);
 
-//            if (isLogin) {
-//                HideItem();
-//            }
+            if (isLogin) {
+                SwitchToLogout();
+
+            } else {
+                SwitchToLogin();
+
+            }
 //
 //            final Intent intent = getIntent();
 
@@ -352,11 +356,25 @@ public class MainActivity extends AppCompatActivity
             }
         }
 
-        private void HideItem() {
+        private void SwitchToLogout() {
             NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
             Menu nav_Menu = navigationView.getMenu();
             nav_Menu.findItem(R.id.navLogin).setVisible(false);
             nav_Menu.findItem(R.id.navLogout).setVisible(true);
+            TextView txtUsername = navigationView.getHeaderView(0).findViewById(R.id.txtUserName);
+            if (txtUsername != null) {
+                txtUsername.setText(MainActivity.UserName);
+            }
+        }
+        private void SwitchToLogin() {
+            NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+            Menu nav_Menu = navigationView.getMenu();
+            nav_Menu.findItem(R.id.navLogin).setVisible(true);
+            nav_Menu.findItem(R.id.navLogout).setVisible(false);
+            TextView txtUsername = navigationView.getHeaderView(0).findViewById(R.id.txtUserName);
+            if (txtUsername != null) {
+                txtUsername.setText("Welcome!");
+            }
         }
 
         //ánh xạ
@@ -448,6 +466,8 @@ public class MainActivity extends AppCompatActivity
                     break;
                 case R.id.navLogout:
 //                    disconnectFromFacebook();
+                    LoginActivity.onLogout();
+                    SwitchToLogin();
                     break;
             }
             DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
