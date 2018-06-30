@@ -143,7 +143,6 @@ public class MainActivity extends AppCompatActivity
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_main);
             DatabaseController database = new DatabaseController(this);
-            database.addUser("Thanh Lam", "dothanhlam97", "testing");
 //            Boolean isValidAccount = database.validateUser("dothanhlam97", "testing", 0);
 
 //            database.add("ahuhu", 1);
@@ -182,7 +181,7 @@ public class MainActivity extends AppCompatActivity
             NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
             navigationView.setNavigationItemSelectedListener(this);
 
-            if (isLogin) {
+            if (MainActivity.isLogin || MainActivity.UserName != "") {
                 SwitchToLogout();
 
             } else {
@@ -463,6 +462,7 @@ public class MainActivity extends AppCompatActivity
                 case R.id.navLogin:
                     intent = new Intent(this, LoginActivity.class);
                     startActivity(intent);
+                    Log.d("print username / main", MainActivity.UserName);
                     break;
                 case R.id.navLogout:
 //                    disconnectFromFacebook();

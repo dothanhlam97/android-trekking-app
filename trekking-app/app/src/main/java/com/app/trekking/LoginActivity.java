@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.app.trekking.controller.popupController;
 import com.app.trekking.database.DatabaseController;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -23,6 +24,7 @@ import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
+import com.facebook.login.Login;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 
@@ -52,7 +54,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.login);
+        setContentView(R.layout.activity_login);
 //        getSupportActionBar().setTitle("Feedback");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Login");
@@ -98,6 +100,8 @@ public class LoginActivity extends AppCompatActivity {
 //        });
 
         onLogin();
+        onClickSignup();
+
     }
 
     public void onLogin() {
@@ -110,13 +114,30 @@ public class LoginActivity extends AppCompatActivity {
                 String email_content = email.getText().toString();
                 String password_content = password.getText().toString();
                 int id = databaseController.validateUser(email_content, password_content);
-                Cursor cur = databaseController.getUserById(id);
-                if (cur != null) {
-                    cur.moveToFirst();
-                    Log.d("username", cur.getString(1));
-                    MainActivity.UserName = cur.getString(1);
-                    MainActivity.isLogin = true;
+                if (id != -1) {
+                    Cursor cur = databaseController.getUserById(id);
+                    if (cur != null) {
+                        cur.moveToFirst();
+                        Log.d("username", cur.getString(1));
+                        MainActivity.UserName = cur.getString(1);
+                        MainActivity.isLogin = true;
+//                        finish();
+                        return;
+                    }
+
                 }
+                popupController.onDialogLoginFail(view, LoginActivity.this);
+            }
+        });
+    }
+
+    public void onClickSignup() {
+        Button loginBtn = (Button) findViewById(R.id.signup_btn_login_form);
+        loginBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
+                startActivity(intent);
             }
         });
     }
@@ -128,12 +149,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void signupOnLick() {
-        Button signupBtn = (Button) findViewById(R.id.signup);
-        signupBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-            }
-        });
+//        intent = new Intent(this, LoginActivity.class);
+//        startActivity(intent);
     }
 
     public void graphRequest(AccessToken token) {
