@@ -462,12 +462,15 @@ public class MainActivity extends AppCompatActivity
                 case R.id.navLogin:
                     intent = new Intent(this, LoginActivity.class);
                     startActivity(intent);
-                    Log.d("print username / main", MainActivity.UserName);
                     break;
                 case R.id.navLogout:
 //                    disconnectFromFacebook();
                     LoginActivity.onLogout();
                     SwitchToLogin();
+                    break;
+                case R.id.navTour:
+                    intent = new Intent(this, TourActivity.class);
+                    startActivity(intent);
                     break;
             }
             DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

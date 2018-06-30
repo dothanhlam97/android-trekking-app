@@ -16,6 +16,11 @@
             android:icon="@drawable/icon_tracuu"
             android:title="Search" />
         <item
+            android:id="@+id/navTour"
+            android:icon="@drawable/icon_tracuu"
+            android:title="Tours"
+            />
+        <item
             android:id="@+id/navReport"
             android:icon="@drawable/icon_phanhoi"
             android:title="Report"
