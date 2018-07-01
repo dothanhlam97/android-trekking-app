@@ -1,8 +1,11 @@
 package com.app.trekking;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.app.trekking.controller.ItemTour;
@@ -29,5 +32,18 @@ public class TourActivity extends AppCompatActivity {
         ListView listTour = (ListView) findViewById(R.id.listViewTour);
         TourListAdapter adapter = new TourListAdapter(this,R.layout.custom_itemtour, list);
         listTour.setAdapter(adapter);
+
+        onCreateNewTour();
+    }
+
+    public void onCreateNewTour() {
+        Button create_new_tour_btn = (Button) findViewById(R.id.create_new_tour_btn);
+        create_new_tour_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(TourActivity.this, CreateTourActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }

@@ -43,6 +43,12 @@
             android:name=".TourActivity"
             android:parentActivityName=".MainActivity" />
         <activity
+            android:name=".CreateTourActivity"
+            android:parentActivityName=".TourActivity" />
+        <activity
+            android:name=".MapLocationOnTour"
+            android:parentActivityName=".CreateTourActivity" />
+        <activity
             android:name=".TroGiupActivity"
             android:parentActivityName=".MainActivity" />
         <activity
