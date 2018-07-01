@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -39,6 +40,8 @@ public class TourListAdapter extends ArrayAdapter<ItemTour> {
             holder = new ViewHolder();
             holder.nameView = (TextView) view.findViewById(R.id.tourName);
             holder.dateView = (TextView) view.findViewById(R.id.tourCreatedDate);
+            holder.btnShowView = view.findViewById(R.id.showtour_btn);
+            holder.btnRemoveView = view.findViewById(R.id.removetour_btn);
             view.setTag(holder);
         } else {
             holder = (ViewHolder) view.getTag();
@@ -46,6 +49,12 @@ public class TourListAdapter extends ArrayAdapter<ItemTour> {
         ItemTour item = this.listData.get(i);
         holder.nameView.setText(item.getTourName());
         holder.dateView.setText(item.getDateCreated());
+        holder.btnShowView.setFocusable(true);
+        holder.btnShowView.setClickable(true);
+        holder.btnShowView.setHovered(true);
+        holder.btnRemoveView.setFocusable(true);
+        holder.btnRemoveView.setClickable(true);
+        holder.btnRemoveView.setHovered(true);
 
         return view;
     }
@@ -53,5 +62,7 @@ public class TourListAdapter extends ArrayAdapter<ItemTour> {
     private class ViewHolder {
         TextView nameView;
         TextView dateView;
+        Button btnShowView;
+        Button btnRemoveView;
     }
 }
