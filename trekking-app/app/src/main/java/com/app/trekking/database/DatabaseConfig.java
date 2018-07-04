@@ -25,6 +25,9 @@ public class DatabaseConfig {
 
     public static String userTourColumn = "id_user";
     public static String dateTourColumn = "date";
+    public static String nameTourColumn = "name";
+    public static String descriptionTourColumn = "description";
+
 
     public static String latitudeLocationColumn = "latitude";
     public static String longitudeLocationColumn = "longitude";

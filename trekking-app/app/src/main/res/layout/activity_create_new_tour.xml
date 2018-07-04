@@ -32,7 +32,7 @@
         android:layout_height="20dp"
         android:text="Your tour name:"/>
     <EditText
-        android:id="@+id/signup_email"
+        android:id="@+id/tour_name"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:text="My Tour"
@@ -42,7 +42,7 @@
         android:layout_height="20dp"
         android:text="Description:"/>
     <EditText
-        android:id="@+id/signup_name"
+        android:id="@+id/tour_description"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         />

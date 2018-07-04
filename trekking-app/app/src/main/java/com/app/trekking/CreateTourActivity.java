@@ -1,14 +1,24 @@
 package com.app.trekking;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 
 import com.app.trekking.controller.CommonController;
 import com.app.trekking.database.DatabaseController;
+
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+
+import static java.lang.System.*;
 
 /**
  * Created by lam on 7/1/18.
@@ -24,9 +34,9 @@ public class CreateTourActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Create new tour");
 
-//        databaseController = new DatabaseController(getApplicationContext());
+        databaseController = new DatabaseController(getApplicationContext());
         onChooseLocation();
-//        onClickSignup();
+        onClickSubmit();
 
         CommonController.setupUI(findViewById(R.id.create_new_tour), CreateTourActivity.this);
     }
@@ -44,4 +54,19 @@ public class CreateTourActivity extends AppCompatActivity {
         });
     }
 
+    public void onClickSubmit() {
+        Button submitBtn = (Button) findViewById(R.id.create_tour_btn);
+        submitBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                EditText tourNameView = (EditText) findViewById(R.id.tour_name);
+                String tourName = tourNameView.toString();
+                EditText tourDescriptionView = (EditText) findViewById(R.id.tour_description);
+                String tourDescription = tourDescriptionView.toString();
+                Date date = new Date();
+                Timestamp timestamp = new Timestamp(date.getTime());
+                databaseController.addTour(MainActivity.UserName, tourDescription, timestamp.toString());
+            }
+        });
+    }
 }

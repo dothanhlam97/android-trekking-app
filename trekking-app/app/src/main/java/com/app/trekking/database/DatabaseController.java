@@ -34,7 +34,7 @@ public class DatabaseController {
      */
     class SimpleSQLiteOpenHelper extends SQLiteOpenHelper {
         SimpleSQLiteOpenHelper(Context context) {
-            super(context, "Test123.db", null, 2);
+            super(context, "Test124.db", null, 2);
             Log.d("abc", "abc");
         }
 
@@ -56,11 +56,13 @@ public class DatabaseController {
 //                    " " + DatabaseConfig.latitudeLocationColumn + " integer," +
 //                    " " + DatabaseConfig.longitudeLocationColumn + " integer," +
 //                    " " + DatabaseConfig.nameLocationColumn + " text)");
-//            db.execSQL("create table " + DatabaseConfig.tourTableName +
-//                    " (_id integer primary key autoincrement, " +
-//                    " " + DatabaseConfig.idTourLocationInfoColumn + " integer," +
-//                    " " + DatabaseConfig.userTourColumn + " integer," +
-//                    " " + DatabaseConfig.dateTourColumn + " integer)");
+            db.execSQL("create table " + DatabaseConfig.tourTableName +
+                    " (_id integer primary key autoincrement, " +
+                    " " + DatabaseConfig.idTourLocationInfoColumn + " integer," +
+                    " " + DatabaseConfig.userTourColumn + " integer," +
+                    " " + DatabaseConfig.nameTourColumn + " text," +
+                    " " + DatabaseConfig.descriptionTourColumn + " text," +
+                    " " + DatabaseConfig.dateTourColumn + " integer)");
 //            db.execSQL("create table " + DatabaseConfig.locationInfoTableName +
 //                    " (_id integer primary key autoincrement, " +
 //                    " " + DatabaseConfig.idLocationLocationInfoColumn + " integer," +
@@ -178,6 +180,43 @@ public class DatabaseController {
         return getUser(_id, "", "", -1);
     }
 
+    public long addTour(String username, String name, String description, String date) {
+        Cursor user = getUser(-1, username, "", -1);
+        if (user == null) {
+            return -1;
+        }
+        user.moveToFirst();
+        long id_user = user.getLong(0);
+        SQLiteDatabase db = _openHelper.getWritableDatabase();
+        if (db == null) {
+            return 0;
+        }
+        ContentValues row = new ContentValues();
+        row.put(DatabaseConfig.userTourColumn, id_user);
+        row.put(DatabaseConfig.nameTourColumn, name);
+        row.put(DatabaseConfig.descriptionTourColumn, description);
+        row.put(DatabaseConfig.dateTourColumn, date);
+        long id;
+        try {
+
+            id = db.insert(DatabaseConfig.tourTableName, null, row);
+            Log.d("Add tour", "success");
+        }
+        catch (Exception e) {
+         /* This is a generic Exception handler which means it can handle
+          * all the exceptions. This will execute if the exception is not
+          * handled by previous catch blocks.
+          */
+            Log.e("add Tour", e.toString());
+            id = -1;
+        }
+        db.close();
+        return id;
+    }
+
+//    public getListTour(long id_user) {
+//
+//    }
     /**
      * Return a cursor object with all rows in the table.
      * @return A cursor suitable for use in a SimpleCursorAdapter
