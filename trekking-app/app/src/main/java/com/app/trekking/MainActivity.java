@@ -2,6 +2,7 @@ package com.app.trekking;
 import com.app.trekking.database.DatabaseHelper;
 import com.app.trekking.database.DatabaseController;
 import com.app.trekking.controller.favController;
+import com.app.trekking.controller.Profile;
 
 import android.Manifest;
 import android.annotation.TargetApi;
@@ -126,14 +127,15 @@ public class MainActivity extends AppCompatActivity
         private ArrayList<LoadImage> arrayLoadIM=new ArrayList<LoadImage>();
         private SupportMapFragment mapFragment;
         public static String nameLocation = "";
+        public Profile oProfile = new Profile();
 
 
 //        private TextView txtUsername;
 //        private TextView txtEmail;
-        public static String UserName = "";
+//        public static String UserName = "";
 //        private String Email = "";
 //        String profilePicUrl = "";
-        public static boolean isLogin = false;
+//        public static boolean isLogin = false;
 //        String Gender = "";
 //        String Dob = "";
 
@@ -180,10 +182,10 @@ public class MainActivity extends AppCompatActivity
             AnhXa();
             NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
             navigationView.setNavigationItemSelectedListener(this);
-
-            if (MainActivity.isLogin || MainActivity.UserName != "") {
+            Log.d("check login",Profile.checkLogin().toString());
+            Log.d("get username",Profile.getUsername().toString());
+            if (oProfile.checkLogin() ||Profile.getUsername() != "") {
                 SwitchToLogout();
-
             } else {
                 SwitchToLogin();
 
@@ -361,9 +363,7 @@ public class MainActivity extends AppCompatActivity
             nav_Menu.findItem(R.id.navLogin).setVisible(false);
             nav_Menu.findItem(R.id.navLogout).setVisible(true);
             TextView txtUsername = navigationView.getHeaderView(0).findViewById(R.id.txtUserName);
-            if (txtUsername != null) {
-                txtUsername.setText(MainActivity.UserName);
-            }
+            txtUsername.setText(oProfile.getUsername());
         }
         private void SwitchToLogin() {
             NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -465,7 +465,7 @@ public class MainActivity extends AppCompatActivity
                     break;
                 case R.id.navLogout:
 //                    disconnectFromFacebook();
-                    LoginActivity.onLogout();
+                    oProfile.setLogout();
                     SwitchToLogin();
                     break;
                 case R.id.navTour:

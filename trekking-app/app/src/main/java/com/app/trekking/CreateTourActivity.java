@@ -65,7 +65,7 @@ public class CreateTourActivity extends AppCompatActivity {
                 String tourDescription = tourDescriptionView.toString();
                 Date date = new Date();
                 Timestamp timestamp = new Timestamp(date.getTime());
-                databaseController.addTour(MainActivity.UserName, tourDescription, timestamp.toString());
+//                databaseController.addTour(MainActivity.UserName, tourDescription, timestamp.toString());
             }
         });
     }
