@@ -21,4 +21,8 @@ public class ItemTour {
         return this.dateCreated;
     }
 
+    public int getId() {
+        return this.id;
+    }
+
 }

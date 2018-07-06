@@ -55,6 +55,7 @@ public class TourListAdapter extends ArrayAdapter<ItemTour> {
         holder.btnRemoveView.setFocusable(true);
         holder.btnRemoveView.setClickable(true);
         holder.btnRemoveView.setHovered(true);
+        holder.btnRemoveView.setId(item.getId());
 
         return view;
     }

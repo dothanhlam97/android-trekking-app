@@ -12,10 +12,11 @@ public class Profile {
     protected static String email="";
     protected static Boolean isLogin=false;
 
-    public static void setLogin(String _username) {
+    public static void setLogin(String _username, String _email) {
         Log.d("is Login", "true");
         isLogin = true;
         username = _username;
+        email = _email;
     }
 
     public static void setLogout() {

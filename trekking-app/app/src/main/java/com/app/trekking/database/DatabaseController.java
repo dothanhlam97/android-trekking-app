@@ -214,9 +214,23 @@ public class DatabaseController {
         return id;
     }
 
-//    public getListTour(long id_user) {
-//
-//    }
+    public Cursor getListTour(String username) {
+        Cursor user = getUser(-1, username, "", -1);
+        if (user == null) {
+            return null;
+        }
+        user.moveToFirst();
+        long id_user = user.getLong(0);
+        SQLiteDatabase db = _openHelper.getReadableDatabase();
+        if (db == null) {
+            return null;
+        }
+        String query = "select * " +
+                "from " + DatabaseConfig.tourTableName;
+        query += " WHERE " + DatabaseConfig.userTourColumn + "= \"" + id_user + "\"";
+        Cursor cur = db.rawQuery(query, null);
+        return cur;
+    }
     /**
      * Return a cursor object with all rows in the table.
      * @return A cursor suitable for use in a SimpleCursorAdapter

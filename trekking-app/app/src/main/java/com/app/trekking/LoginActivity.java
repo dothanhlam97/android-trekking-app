@@ -72,7 +72,7 @@ public class LoginActivity extends AppCompatActivity {
                     Cursor cur = databaseController.getUserById(id);
                     if (cur != null) {
                         cur.moveToFirst();
-                        Profile.setLogin(cur.getString(1));
+                        Profile.setLogin(cur.getString(1), cur.getString(2));
 //                        finish();
                         return;
                     }

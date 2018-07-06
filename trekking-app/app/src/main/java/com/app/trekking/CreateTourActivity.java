@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.app.trekking.controller.CommonController;
+import com.app.trekking.controller.Profile;
 import com.app.trekking.database.DatabaseController;
 
 import java.sql.Timestamp;
@@ -65,7 +66,7 @@ public class CreateTourActivity extends AppCompatActivity {
                 String tourDescription = tourDescriptionView.toString();
                 Date date = new Date();
                 Timestamp timestamp = new Timestamp(date.getTime());
-//                databaseController.addTour(MainActivity.UserName, tourDescription, timestamp.toString());
+                databaseController.addTour(Profile.getEmail(), tourName, tourDescription, timestamp.toString());
             }
         });
     }

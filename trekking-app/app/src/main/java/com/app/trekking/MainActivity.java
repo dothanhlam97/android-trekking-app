@@ -145,6 +145,7 @@ public class MainActivity extends AppCompatActivity
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_main);
             DatabaseController database = new DatabaseController(this);
+            Profile.setLogin("Lem Lem", "dothanhlam97");
 //            Boolean isValidAccount = database.validateUser("dothanhlam97", "testing", 0);
 
 //            database.add("ahuhu", 1);
