@@ -30,7 +30,7 @@ public class InfoActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = null;
                 if(i == 0){
-                    intent = new Intent(getApplicationContext(), ThongTinUngDungActivity.class);
+                    intent = new Intent(getApplicationContext(), AboutActivity.class);
                     startActivity(intent);
                 }else if(i == 1){
                     intent = new Intent(getApplicationContext(), ThongTinTeamActivity.class);

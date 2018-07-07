@@ -1,5 +1,6 @@
 package com.app.trekking;
 
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -22,32 +23,35 @@ import java.util.ArrayList;
  */
 
 public class TourActivity extends AppCompatActivity {
-    DatabaseController databaseController;
+    public static DatabaseController databaseController;
+    public static ListView listTour;
+    public static Context mContext;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tours);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Tours");
-
-        ArrayList<ItemTour> list = new ArrayList<>();
+        mContext = this;
+        listTour = (ListView) findViewById(R.id.listViewTour);
         databaseController = new DatabaseController(getApplicationContext());
+        setupListTour(this);
+        onCreateNewTour();
+    }
+
+    public static void setupListTour(Context mcontext) {
+        ArrayList<ItemTour> list = new ArrayList<>();
         Cursor cur = databaseController.getListTour(Profile.getEmail());
         if (cur == null) {
             Log.d("get List tour", "no item");
         } else {
             cur.moveToFirst();
             while (cur.moveToNext()) {
-                Log.d("cur ", cur.toString());
-                list.add(new ItemTour(cur.getString(2), cur.getString(4), cur.getInt(0)));
+                list.add(new ItemTour(cur.getString(3), cur.getString(5), cur.getInt(0)));
             }
         }
-        ListView listTour = (ListView) findViewById(R.id.listViewTour);
-        TourListAdapter adapter = new TourListAdapter(this,R.layout.custom_itemtour, list);
+        TourListAdapter adapter = new TourListAdapter(mcontext,R.layout.custom_itemtour, list);
         listTour.setAdapter(adapter);
-
-        onCreateNewTour();
-        onRemoveTour();
     }
 
     public void onCreateNewTour() {
@@ -61,7 +65,9 @@ public class TourActivity extends AppCompatActivity {
         });
     }
 
-    public void onRemoveTour() {
-
+    public static void removeTour(Integer id) {
+        databaseController.removeTourById(id);
+        setupListTour(mContext);
     }
+
 }

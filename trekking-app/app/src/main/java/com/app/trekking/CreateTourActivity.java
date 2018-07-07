@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -61,11 +62,13 @@ public class CreateTourActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 EditText tourNameView = (EditText) findViewById(R.id.tour_name);
-                String tourName = tourNameView.toString();
+                String tourName = tourNameView.getText().toString();
                 EditText tourDescriptionView = (EditText) findViewById(R.id.tour_description);
-                String tourDescription = tourDescriptionView.toString();
+                String tourDescription = tourDescriptionView.getText().toString();
                 Date date = new Date();
                 Timestamp timestamp = new Timestamp(date.getTime());
+                Log.d("tour name", tourName);
+                Log.d("tour des", tourDescription);
                 databaseController.addTour(Profile.getEmail(), tourName, tourDescription, timestamp.toString());
             }
         });

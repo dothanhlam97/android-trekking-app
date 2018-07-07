@@ -17,7 +17,7 @@
             android:title="Search" />
         <item
             android:id="@+id/navTour"
-            android:icon="@drawable/icon_tracuu"
+            android:icon="@drawable/tour"
             android:title="Tours"
             />
         <item

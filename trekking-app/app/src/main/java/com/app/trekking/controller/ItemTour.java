@@ -22,6 +22,8 @@ public class ItemTour {
     }
 
     public int getId() {
+//        Integer id = new Integer(this.id);
+//        return id.toString();
         return this.id;
     }
 

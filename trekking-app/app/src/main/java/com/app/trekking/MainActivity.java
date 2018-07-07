@@ -1,7 +1,5 @@
 package com.app.trekking;
-import com.app.trekking.database.DatabaseHelper;
 import com.app.trekking.database.DatabaseController;
-import com.app.trekking.controller.favController;
 import com.app.trekking.controller.Profile;
 
 import android.Manifest;
@@ -11,9 +9,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.content.res.Resources;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -24,7 +19,6 @@ import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
@@ -43,7 +37,6 @@ import android.view.View;
 import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -52,7 +45,6 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.facebook.login.LoginManager;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
@@ -92,11 +84,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.logging.Logger;
-
-import javax.net.ssl.HttpsURLConnection;
 
 import static android.app.PendingIntent.getActivity;
 
@@ -430,11 +418,11 @@ public class MainActivity extends AppCompatActivity
             Intent intent = null;
             switch (id) {
                 case R.id.navReport:
-                    intent = new Intent(this, GopYSanPhamActivity.class);
+                    intent = new Intent(this, ReportActivity.class);
                     startActivity(intent);
                     break;
                 case R.id.navAbout:
-                    intent = new Intent(this, ThongTinUngDungActivity.class);
+                    intent = new Intent(this, AboutActivity.class);
                     startActivity(intent);
                     break;
                 case R.id.navSearch:
@@ -465,7 +453,6 @@ public class MainActivity extends AppCompatActivity
                     startActivity(intent);
                     break;
                 case R.id.navLogout:
-//                    disconnectFromFacebook();
                     oProfile.setLogout();
                     SwitchToLogin();
                     break;

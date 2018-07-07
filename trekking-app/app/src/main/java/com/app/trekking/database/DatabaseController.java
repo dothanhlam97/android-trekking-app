@@ -231,6 +231,15 @@ public class DatabaseController {
         Cursor cur = db.rawQuery(query, null);
         return cur;
     }
+
+    public void removeTourById(Integer _id) {
+        SQLiteDatabase db = _openHelper.getWritableDatabase();
+        if (db == null) {
+            return;
+        }
+        Integer result = db.delete(DatabaseConfig.tourTableName, DatabaseConfig.idColumn + "=" + _id.toString(), null);
+        Log.d("result ", result.toString());
+    }
     /**
      * Return a cursor object with all rows in the table.
      * @return A cursor suitable for use in a SimpleCursorAdapter

@@ -23,18 +23,27 @@
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
+        <!--<meta-data-->
+            <!--android:name="com.google.android.maps.v2.API_KEY"-->
+            <!--android:value="AIzaSyBGC0MFR6VZ-7iVgtwjgPPTxqqZULkgmcM" />-->
         <meta-data
-            android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyAfAGWP3hSqruk1pWEaCnLd_VT-wmLHHvU" />
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBGC0MFR6VZ-7iVgtwjgPPTxqqZULkgmcM"/>
+
 
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
-
         </activity>
         <activity
             android:name=".LoginActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".ReportActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".AboutActivity"
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".SignupActivity"
@@ -63,6 +72,7 @@
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name" />
+
         <activity
             android:name="com.facebook.CustomTabActivity"
             android:exported="true">

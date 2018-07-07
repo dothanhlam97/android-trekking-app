@@ -15,6 +15,8 @@ import android.widget.TextView;
 import com.app.trekking.CustomListAdapter;
 import com.app.trekking.ItemListView;
 import com.app.trekking.R;
+import com.app.trekking.TourActivity;
+import com.app.trekking.database.DatabaseController;
 
 import java.util.List;
 
@@ -23,6 +25,7 @@ public class TourListAdapter extends ArrayAdapter<ItemTour> {
     private List <ItemTour> listData;
     private int resource;
     private Context context;
+    private DatabaseController databaseController;
 
     public TourListAdapter(@NonNull Context context, int resource, @NonNull List<ItemTour> objects) {
         super(context, resource, objects);
@@ -47,6 +50,7 @@ public class TourListAdapter extends ArrayAdapter<ItemTour> {
             holder = (ViewHolder) view.getTag();
         }
         ItemTour item = this.listData.get(i);
+        Log.d("tour name", item.getTourName());
         holder.nameView.setText(item.getTourName());
         holder.dateView.setText(item.getDateCreated());
         holder.btnShowView.setFocusable(true);
@@ -55,9 +59,32 @@ public class TourListAdapter extends ArrayAdapter<ItemTour> {
         holder.btnRemoveView.setFocusable(true);
         holder.btnRemoveView.setClickable(true);
         holder.btnRemoveView.setHovered(true);
-        holder.btnRemoveView.setId(item.getId());
-
+        holder.id = item.getId();
+//        Log.d("tag", holder.btnShowView.getTag(0).toString());
+//        holder.btnRemoveView.setTag(0, new String("remove" + item.getId()));
+        onClickRemove(holder);
+        onClickDetail(holder);
         return view;
+    }
+
+    private void onClickRemove(final ViewHolder holder) {
+        holder.btnRemoveView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                databaseController.removeTourById(holder.id);
+                TourActivity.removeTour(holder.id);
+            }
+        });
+    }
+
+    private void onClickDetail(final ViewHolder holder) {
+        holder.btnShowView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Integer id = new Integer(holder.id);
+                Log.d("remove", id.toString());
+            }
+        });
     }
 
     private class ViewHolder {
@@ -65,5 +92,6 @@ public class TourListAdapter extends ArrayAdapter<ItemTour> {
         TextView dateView;
         Button btnShowView;
         Button btnRemoveView;
+        int id;
     }
 }

@@ -27,23 +27,22 @@ public class MapLocationOnTour extends FragmentActivity implements OnMapReadyCal
         super.onCreate(savedInstanceState);
         setContentView(R.layout.map_location_on_tour);
 
-        placeAutoComplete = (PlaceAutocompleteFragment) getFragmentManager().findFragmentById(R.id.place_autocomplete_tour);
-        placeAutoComplete.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+        PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
+                getFragmentManager().findFragmentById(R.id.place_autocomplete_tour);
+
+        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
             @Override
             public void onPlaceSelected(Place place) {
-
-                Log.d("Maps", "Place selected: " + place.getName());
+                // TODO: Get info about the selected place.
+                Log.i("autocomplete", "Place: " + place.getName());
             }
 
             @Override
             public void onError(Status status) {
-                Log.d("Maps", "An error occurred: " + status);
+                // TODO: Handle the error.
+                Log.i("Error autocomplete", "An error occurred: " + status);
             }
         });
-
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
     }
 
 
