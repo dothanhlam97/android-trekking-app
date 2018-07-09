@@ -13,8 +13,14 @@
         android:name="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment"
         />
 
+    <Button
+        android:layout_width="111dp"
+        android:layout_height="wrap_content"
+        android:text="Bingo"
+        android:id="@+id/accept_location"/>
+
     <fragment
-        android:id="@+id/map"
+        android:id="@+id/map_in_choose_tour"
         class="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

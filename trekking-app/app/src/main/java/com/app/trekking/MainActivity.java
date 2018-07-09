@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity
         private GoogleMap map;
         private FloatingActionButton fab, fabTimDuong, fabTraCuu, fabToaDo;
         private String namePlace = "";
-        private  Animation moveCrossover, moveTop, moveLeft, controlFabForward, controlFabBackward;
+        private Animation moveCrossover, moveTop, moveLeft, controlFabForward, controlFabBackward;
         private boolean checkShowHide = true;
         private Dialog findDialog, typeDialog,themeDialog,oDialog;
         private int mode = 0; //default=drive
@@ -544,15 +544,11 @@ public class MainActivity extends AppCompatActivity
                         Log.d("jsonFile", jsonArray.toString());
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject object = jsonArray.getJSONObject(i);
-                            Log.d("string name", object.getString("id"));
-                            Log.d("name location", nameLocation);
                             if (object.getString("id").equals(nameLocation) == false) {
                                 continue;
                             }
                             Double tung = object.getDouble("locationX");
                             Double hoanh = object.getDouble("locationY");
-                            Log.d("tung", tung.toString());
-                            Log.d("hoanh", hoanh.toString());
                             LatLng near = new LatLng(tung, hoanh);
                             MarkerOptions markerOptions = new MarkerOptions();
                             markerOptions.position(near);
@@ -580,7 +576,6 @@ public class MainActivity extends AppCompatActivity
                     }
                     JSONObject jsonObject = new JSONObject(s);
                     JSONArray jsonArray = jsonObject.getJSONArray("results");
-                    Log.d("json", jsonArray.toString());
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject object = jsonArray.getJSONObject(i);
                         JSONObject toado = object.getJSONObject("geometry");
@@ -602,7 +597,6 @@ public class MainActivity extends AppCompatActivity
                         markerOptions.title(name);
                         markerOptions.snippet(cover);
                         String url="https://maps.googleapis.com/maps/api/place/phcarTravel?maxwidth=400&sensor=false&key=" + SystemConfig.GOOGLE_API_KEY;
-                        Log.d("url 2", url);
                         Marker a = map.addMarker(markerOptions);
                         LoadImage loadImage=new LoadImage();
                         loadImage.execute(url,a);
